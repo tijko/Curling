@@ -1,0 +1,1 @@
+curl -v POST https://bpa.st/ -d 'code=hamburgers' -d 'lexer=c' -d 'expiry=1day'

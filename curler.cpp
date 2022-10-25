@@ -10,7 +10,7 @@ class FileTransfer {
 
     private:
         CURL *chandle; 
-        string def_url = "https://bpa.st";
+        string def_url = "https://bpa.st/";
         string data = " -d 'code=hotdogs' -d 'lexer=c' -d 'expiry=1day'";
     public:
         int connections;
