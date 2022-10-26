@@ -12,3 +12,7 @@ A quick Curl based C++ program
 ### Uninstall
 
     sudo make uninstall
+
+### Clean
+
+    make clean
