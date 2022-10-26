@@ -1,6 +1,14 @@
 # Curling
 A quick Curl based C++ program
 
-## Make
+### Build
 
-    g++ curler.cpp -o Curler -g -Wall -Wextra -lcurl
+    make
+
+### Install
+
+    sudo make install
+
+### Uninstall
+
+    sudo make uninstall
