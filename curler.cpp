@@ -3,8 +3,10 @@
 #include <iostream>
 #include <curl/curl.h>
 
+
 using namespace::std;
 
+//#define DEBUG  
 
 class FileTransfer {
 
@@ -16,19 +18,25 @@ class FileTransfer {
         int connections;
 
     FileTransfer() {
+#ifdef DEBUG
         cout << "Handling Constructed...!" << endl;
+#endif
         chandle = curl_easy_init();
     };
 
     FileTransfer(string url) {
+#ifdef DEBUG
         cout << "You have passed an alternate URL...!" << endl;
+#endif
         chandle = curl_easy_init();
         def_url = url;
     };
 
     void make_connection(void) {
         if (chandle) {
+#ifdef DEBUG
             cout << "Inside connection handling..." << endl;
+#endif
             CURLcode res;
             curl_easy_setopt(chandle, CURLOPT_URL, def_url.c_str()); 
             curl_easy_setopt(chandle, CURLOPT_POSTFIELDS, data.c_str());
@@ -46,6 +54,9 @@ class FileTransfer {
 
 int main(int argc, char *argv[])
 {
+#ifdef DEBUG
+    cout << "DEBUGGING ENABLED" << endl;
+#endif
     if (argc < 2) {
         cout << "Pass an URL..." << endl;
         exit(0);
@@ -54,7 +65,7 @@ int main(int argc, char *argv[])
     string curl_url(argv[1]);
     regex url_regex(R"(^(([^:\/?#]+):)?(//([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?)", REG_EXTENDED);
     smatch url_match_result;
-    /*
+    
     if (regex_match(curl_url, url_match_result, url_regex)) {
         FileTransfer *ft = new FileTransfer(curl_url);
         ft->make_connection();
@@ -62,7 +73,7 @@ int main(int argc, char *argv[])
         FileTransfer *ft = new FileTransfer();
         ft->make_connection();
     };
-    */
+    
     FileTransfer *ft = new FileTransfer();
     ft->make_connection();
     
