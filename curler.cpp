@@ -55,15 +55,17 @@ int main(int argc, char *argv[])
 #ifdef DEBUG
     cout << "DEBUGGING ENABLED" << endl;
 #endif
-    if (argc < 2) {
-        cout << "Pass an URL..." << endl;
+    if (argc == 2) {
+        string curl_url(argv[1]);
+        FileTransfer *ft = new FileTransfer(curl_url);
+        ft->make_connection();
+    } else if (argc > 2) {
+        cout << "Invalid Arguments" << endl;
         exit(0);
+    } else {
+        FileTransfer *ft = new FileTransfer();
+        ft->make_connection();
     }
-
-    string curl_url(argv[1]);
-    
-    FileTransfer *ft = new FileTransfer(curl_url);
-    ft->make_connection();
     
     return 0;
 }
