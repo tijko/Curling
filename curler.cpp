@@ -8,6 +8,7 @@
 using namespace::std;
 
 //#define DEBUG  
+// Create tap interface before launching test # tunctl -t %s
 
 class FileTransfer {
 
@@ -73,18 +74,20 @@ int main(int argc, char *argv[])
     struct nl_sock *sk = nl_socket_alloc();
     struct rtnl_link *link = rtnl_link_alloc();
     struct nl_cache *link_cache;
-    struct rtnl_link *ltap;
+    //struct rtnl_link *ltap;
 
-    char *name = "New-Bridge";
+    string name = "New-Bridge";
     nl_connect(sk, NETLINK_ROUTE);
     rtnl_link_alloc_cache(sk, AF_UNSPEC, &link_cache);
 
     rtnl_link_set_type(link, "bridge");
 
-    rtnl_link_set_name(link, name);
+    rtnl_link_set_name(link, name.c_str());
     rtnl_link_add(sk, link, NLM_F_CREATE);
     rtnl_link_put(link);
-
+    nl_cache_refill(sk, link_cache);
+    link = rtnl_link_get_by_name(link_cache, name.c_str());
+    //ltap = rtnl_link_get_by_name(link_cache, 
     return 0;
 }
 
