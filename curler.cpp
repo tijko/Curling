@@ -1,5 +1,3 @@
-#include <regex>
-#include <regex.h>
 #include <iostream>
 #include <curl/curl.h>
 
@@ -63,18 +61,8 @@ int main(int argc, char *argv[])
     }
 
     string curl_url(argv[1]);
-    regex url_regex(R"(^(([^:\/?#]+):)?(//([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?)", REG_EXTENDED);
-    smatch url_match_result;
     
-    if (regex_match(curl_url, url_match_result, url_regex)) {
-        FileTransfer *ft = new FileTransfer(curl_url);
-        ft->make_connection();
-    } else {
-        FileTransfer *ft = new FileTransfer();
-        ft->make_connection();
-    };
-    
-    FileTransfer *ft = new FileTransfer();
+    FileTransfer *ft = new FileTransfer(curl_url);
     ft->make_connection();
     
     return 0;
