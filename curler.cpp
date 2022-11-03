@@ -1,8 +1,9 @@
 #include <netlink/netlink.h>
-#include <netlink/socket.h>
+#include <netlink/route/link.h>
+#include <netlink/route/link/bridge.h>
 #include <iostream>
 #include <curl/curl.h>
-
+#include <linux/netlink.h>
 
 using namespace::std;
 
@@ -69,6 +70,21 @@ int main(int argc, char *argv[])
         ft->make_connection();
     }
     
+    struct nl_sock *sk = nl_socket_alloc();
+    struct rtnl_link *link = rtnl_link_alloc();
+    struct nl_cache *link_cache;
+    struct rtnl_link *ltap;
+
+    char *name = "New-Bridge";
+    nl_connect(sk, NETLINK_ROUTE);
+    rtnl_link_alloc_cache(sk, AF_UNSPEC, &link_cache);
+
+    rtnl_link_set_type(link, "bridge");
+
+    rtnl_link_set_name(link, name);
+    rtnl_link_add(sk, link, NLM_F_CREATE);
+    rtnl_link_put(link);
+
     return 0;
 }
 

@@ -1,8 +1,8 @@
 SRC=curler.cpp
 BIN=curler
-CFLAGS=-Wextra -Wall $(shell pkg-config --cflags libnl-3.0)
+CFLAGS=-Wextra -Wall $(shell pkg-config --cflags libnl-3.0 libnl-genl-3.0 libnl-route-3.0)
 CC=g++
-LDFLAGS=$(shell pkg-config --libs libcurl libnl-3.0)
+LDFLAGS=$(shell pkg-config --libs libcurl libnl-3.0 libnl-genl-3.0 libnl-route-3.0)
 
 default:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(LDFLAGS)
