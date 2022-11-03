@@ -1,5 +1,6 @@
 # Curling
 A quick Curl based C++ program
+Create tap interface before launching test # tunctl -t INTERFACE
 
 ### Build
 

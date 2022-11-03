@@ -8,7 +8,6 @@
 using namespace::std;
 
 //#define DEBUG  
-// Create tap interface before launching test # tunctl -t %s
 
 class FileTransfer {
 
