@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     struct nl_sock *sk = nl_socket_alloc();
     struct rtnl_link *link = rtnl_link_alloc();
     struct nl_cache *link_cache;
-    //struct rtnl_link *ltap;
+    struct rtnl_link *ltap;
 
     string name = "New-Bridge";
     nl_connect(sk, NETLINK_ROUTE);
@@ -86,7 +86,17 @@ int main(int argc, char *argv[])
     rtnl_link_put(link);
     nl_cache_refill(sk, link_cache);
     link = rtnl_link_get_by_name(link_cache, name.c_str());
-    //ltap = rtnl_link_get_by_name(link_cache, 
+    ltap = rtnl_link_get_by_name(link_cache, "TEST-BRIDGE");
+
+    rtnl_link_enslave(sk, link, ltap);
+    rtnl_link_is_bridge(link);
+
+    rtnl_link_put(ltap);
+    nl_cache_refill(sk, link_cache);
+    ltap = rtnl_link_get_by_name(link_cache, name.c_str());
+
+    rtnl_link_get_master(ltap);
+
     return 0;
 }
 
